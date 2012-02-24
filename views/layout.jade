@@ -1,0 +1,196 @@
+!!!
+//[if lt IE 7 ]> <html class="no-js ie6 oldie" lang="en"> <![endif]
+//[if IE 7 ]> <html class="no-js ie7 oldie" lang="en"> <![endif]
+//[if IE 8 ]> <html class="no-js ie8 oldie" lang="en"> <![endif]
+//[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]
+head
+  meta(charset="utf-8")
+  meta(http-equiv="X-UA-Compatible",content="IE=edge,chrome=1")
+
+  title= title+' - International Vapers Club' || 'Lavacorps - International Vapers Club'
+
+  meta(name="description", content="Lavacorps - International Vapers Club")
+  meta(name="author", content="Evan Johnson")
+  meta(name="viewport", content="width=device-width,initial-scale=1")
+
+  link(rel="stylesheet", href="css/bootstrap.min.css")
+  link(rel="stylesheet", href="css/ui-lightness/jquery-ui-1.8.17.custom.css")
+
+  script(src="js/libs/modernizr-2.0.6.min.js")
+
+body(data-spy='scroll', data-target='.subnav', data-offset='50', data-rendering='true', screen_capture_injected='true')
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container
+        a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.brand(href="http://lavacorps.internationalvapersclub.com/") Lavacorps on IVC
+        .nav-collapse.in.collapse(style='height:auto;')
+          ul.nav
+            li.active
+              a(href="#") Home
+            li
+              a(href="#") About
+            li
+              a(href="#") Contact
+          if isAdmin 
+            span.label.success Logged in as an Administrator.
+            &nbsp;
+            a.logout-action(href="/") 
+              span.label Logout
+          else if user 
+            span.label.notice Registered as #{user}.
+            &nbsp;              
+            a.logout-action(href="/")
+              span.label Not you?
+          else
+            form#login-form.navbar-form.pull-right(action='')
+              input.input-small(type='text', name='user', placeholder='Username')
+              &nbsp;
+              input.input-small(type='password', name='pass', placeholder='Password')
+              &nbsp; 
+              button.btn.login-action(type='submit') Sign in 
+              
+  #container
+    #main.container(role="main")
+      .hero-unit 
+        h1 
+          | Lavacorps Dead Simple 
+          br 
+          | Tank Sale System
+        p I've created this page to be as simple as possible to keep track of and register people requesting a tank for the tank sales. You'll see the countdown timer below and when it runs out, you'll be able to request a tank. Simple as that! No refreshing, no handling hundreds of PM windows, and no lag.
+
+      #lavatank.row
+
+      .row
+        .span4
+          h2 Next Lavatank Sale
+          div#cdsm
+          p
+            a#request-tank.btn.btn-info.disabled(
+            ) Pre-fill your tank request 
+          p
+            a#request-pm.btn.btn-large(
+              data-toggle="modal",
+              href="#modal-pm",
+            ) Send PM to Admin
+        .span8
+          h2 Lavacorps Chat
+            small &nbsp; @ 
+              a(href="irc://irc.internationalvapersclub.com/lavacorps") #lavacorps
+          #chatWindow
+          #chatControls
+            #chatInput.clearfix
+              input.xxlarge#chatMessage(name="chatMessage", size="60", type="text", placeholder="Type your message and hit enter or the send button.")
+              &nbsp;
+              input.btn(type="submit", value="Send")
+
+      #admin-controls
+        #admin-scheduleForm
+        
+    footer.footer
+      .container
+        p.pull-right
+          a(href="#") Back to top
+        p 
+          | Created by 
+          a(href="http://twitter.com/slickplaid") @slickplaid
+          . Using 
+          a(href) Node.js
+          ,
+          a(href) Express
+          ,
+          a(href) Bootstrap
+          , and 
+          a(href) Socket.io
+          .
+          br
+          &copy; 2012 Evan Johnson, 
+          a(href="http://www.internationalvapersclub.com/") International Vapers Club
+          |, and in association with 
+          a(href="http://www.internationalvapersclub.com/lavacorps") Lavacorps
+          .
+
+  #modal-pm.modal.hide.fade.in
+    .modal-header
+      a.close(data-dismiss="modal") &times;
+      h3 Send a Private Message      
+    .modal-body
+      form#form-pm.form-horizontal
+        fieldset
+        .control-group
+          label(for="username").control-label Username
+          .controls
+            if user
+              input#username.input-xlarge(name="username", size="60", type="text", value=user, disabled)
+              p.help-block You are logged in as #{user}.
+            else
+              input#username.input-xlarge(name="username", size="60", type="text")
+              p.help-block Your username        
+        .control-group
+          label(for="info").control-label Message
+          .controls
+            textarea#message.input-xlarge(name="info", rows="3")
+            p.help-block Type a short message. At this moment, replies haven't been implemented but they will in the future.
+    .modal-footer
+      button.btn.btn-primary Submit
+      a.btn(href="#") Close
+
+  #modal-tankRequest.modal.hide.fade.in
+    .modal-header
+      a(href="#").close &times;
+      h3 Request your Lavatank
+    .modal-body
+      form#form-tankRequest
+        .clearfix
+          label(for="username") Username
+          .input
+            input#username.xlarge(name="username", size="60", type="text")
+            span.help-block Your username on ECF
+        .clearfix
+          label(for="ohms") Cartomizer Ohms
+          .input
+            ul.inputs-list
+              li
+                label
+                  input(type="radio", name="ohms", value="1.5", checked)
+                  span 1.5 ohm
+              li
+                label
+                  input(type="radio", name="ohms", value="2.0)
+                  span 2.0 ohm
+              li
+                label
+                  input(type="radio", name="ohms", value="3.0")
+                  span 3.0 ohm
+            
+        .clearfix
+          label(for="tip1") Pawn or Ming
+        .clearfix
+          label(for="info") Additional Information
+          .input
+            textarea#info.xlarge(name="info", rows="3")
+            span.help-block Give us additional information about your order
+    .modal-footer
+      a(href="#",disabled).btn.primary Submit
+      a(href="#").btn.secondary Save
+      a(href="#").btn.danger Cancel
+
+  script(src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js")
+  script window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\\/script>')
+  //[if lt IE 7 ]>
+    script(defer,src="//ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js")
+    script(defer) window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})
+  script(defer,src="socket.io/socket.io.js")
+  script(defer,src="js/plugins.js")
+  script(defer,src="js/libs/ejs_production.js")
+  script(defer,src="js/libs/view.js")
+  script(defer,src="js/jquery.gritter.min.js")
+  script(defer,src="js/script.js")
+  script
+    window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
+    Modernizr.load([
+      { load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js' }
+    ]);

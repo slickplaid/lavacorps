@@ -1,0 +1,104 @@
+<section id="section-admin">
+  <div class="page-header">
+    <h1>
+      Administration 
+      <small>Keep track of orders and messages</small>
+    </h1>
+    
+  </div>
+  <div class="row">
+    <div class="span4">
+      <h2>Broadcast</h2>
+      <p><textarea id="admin-broadcast" class="" name="admin-broadcast" rows="5" placeholder="Message will be broadcast to all users currently on the site."></textarea></p>
+      <p><button id="admin-broadcastSubmit" href="#" class="btn small">Submit</button></p>
+    </div>
+    <div class="span4">
+      <h2>Sale Control</h2>
+      <form action class="form-stacked">
+        <div class="clearfix">
+          <label for="scheduleSale">Sale Date</label>
+          <div class="input">
+            <div class="input-append">
+              <input class="large" id="scheduleSale" name="scheduleSale" size="100" type="text">
+              <label class="add-on">
+                <input type="checkbox" id="enableSale" title="Enable Sale">
+              </label>
+            </div>
+          </div>
+        </div>
+      </form>
+      <p class="clearfix">
+        <!--<button id="admin-startSale" href="#" class="btn success large">Manually Start Sale</button>
+         &nbsp; 
+        <button id="admin-scheduleSale" href="#" class="btn large">Schedule</button>-->
+      </p>
+    </div>
+    <div class="span4">
+      <h2>Statistics</h2>
+    </div>
+  </div>
+</section>
+<section id="section-pm">
+  <div class="page-header">
+    <h1>
+      Private Messages
+      <small>(Responses not yet implemented)</small>
+    </h1>
+  </div>
+  <div class="row">
+    <div class="span16">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody id="table-pmBody">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<section id="section-orders">
+  <div class="page-header">
+    <h1>
+      Orders
+      <small>Click on an order to view details</small>
+    </h1>
+  </div>
+  <div class="row">
+    <div class="span16">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Tank Choice #1</th>
+            <th>Tank Choice #2</th>
+            <th>Tank Choice #3</th>
+          </tr>
+        </thead>
+        <tbody id="table-orders">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div id="modal-pmResponse" class="modal hide fade in">
+  <div class="modal-header">
+    <a href="#" class="close">&times;</a>
+    <h3>Compose Private Message</h3>
+  </div>
+  <div class="modal-body">
+    
+  </div>
+  <div class="modal-footer">
+    <button class="btn success">Send</button>
+    <button class="btn danger">Cancel</button>
+  </div>
+</div>
