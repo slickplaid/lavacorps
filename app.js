@@ -16,15 +16,15 @@ var io = require('socket.io').listen(app);
 // Configuration
 
 app.configure(function(){
+  app.use(express.logger('dev'));
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
   app.use(express.session({ secret: 'bananarama', store: sessionStore, key: 'express.sid' }));
-  app.use(app.router);
   app.use(express.static(__dirname + '/public'));
-  app.use(express.logger('dev'));
+  app.use(app.router);
 });
 
 app.configure('development', function(){
@@ -58,7 +58,7 @@ app.dynamicHelpers({
 
 app.get('/', routes.index);
 
-app.listen(3000);
+app.listen(3001);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 
 // handle socket.io connections
